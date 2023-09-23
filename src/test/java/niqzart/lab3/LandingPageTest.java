@@ -16,7 +16,7 @@ public class LandingPageTest extends BaseTest {
       Arguments.of("// in xpath", "%2F%2F+in+xpath"),
       Arguments.of("hello score:4", "hello+score%3A4"),
       Arguments.of("is:question", "is%3Aquestion"),
-      Arguments.of("[]", "=%5B%5D")  // checking if [] is not recognized as a tag
+      Arguments.of("[]", "%5B%5D")  // checking if [] is not recognized as a tag
     );
   }
 
@@ -34,7 +34,7 @@ public class LandingPageTest extends BaseTest {
   }
   private static Stream<Arguments> searchTagsParams() {
     return Stream.of(
-      Arguments.of("[kotlin]", "kotilin"),
+      Arguments.of("[kotlin]", "kotlin"),
       Arguments.of("[kotlin] [java]", "kotlin+java")
     );
   }

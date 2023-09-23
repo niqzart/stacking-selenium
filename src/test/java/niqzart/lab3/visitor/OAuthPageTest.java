@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
 import java.util.stream.Stream;
 
@@ -27,7 +28,12 @@ public abstract class OAuthPageTest extends BaseTest {
     drivers.forEach(driver -> {
       OAuthPage oAuthPage = constructPage(driver);
 
-      oAuthPage.clickLoginWithProvider(provider);
+      try {
+        oAuthPage.clickLoginWithProvider(provider);
+      } catch (WebDriverException e) {
+        assertTrue(e.getMessage().contains("stackauth.com"));
+        return;
+      }
 
       assertTrue(driver.getCurrentUrl().startsWith(url));
       assertTrue(driver.getCurrentUrl().contains("stackauth.com"));

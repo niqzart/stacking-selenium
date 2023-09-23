@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.v114.network.Network;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +25,15 @@ public abstract class BaseTest {
   public void setUp() {
     drivers = new ArrayList<>();
 
-    if (Properties.getInstance().doFirefox()) drivers.add(new FirefoxDriver());
+    if (Properties.getInstance().doFirefox()) {
+      FirefoxDriver firefoxDriver = new FirefoxDriver();
+      firefoxDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+      drivers.add(firefoxDriver);
+    }
 
     if (Properties.getInstance().doChrome()) {
       ChromeDriver chromeDriver = new ChromeDriver();
+      chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
       chromeDriver.getDevTools().createSession();
       chromeDriver.getDevTools().send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
       chromeDriver.getDevTools().send(Network.setBlockedURLs(List.of(
