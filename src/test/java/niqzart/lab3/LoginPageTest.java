@@ -1,15 +1,16 @@
 package niqzart.lab3;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
+import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LoginPageTest extends BaseTest {
+public class LoginPageTest extends OAuthPageTest {
+  @Override
+  protected OAuthPage constructPage(WebDriver driver) {
+    return new LoginPage(driver);
+  }
+
   @Test
   void testNoErrorsBeforeInput() {
     drivers.forEach(driver -> {
@@ -73,26 +74,6 @@ public class LoginPageTest extends BaseTest {
       String errorMessage = loginPage.getErrorMessage();
       assertNotNull(errorMessage);
       assertTrue(errorMessage.contains("The email or password is incorrect"));
-    });
-  }
-
-  private static Stream<Arguments> oauthParams() {
-    return Stream.of(
-      Arguments.of("google", "https://accounts.google.com/"),
-      Arguments.of("github", "https://github.com/"),
-      Arguments.of("facebook", "https://www.facebook.com/")
-    );
-  }
-
-  @ParameterizedTest
-  @MethodSource("oauthParams")
-  public void testNavigateToOauth(String provider, String url) {
-    drivers.forEach(driver -> {
-      LoginPage loginPage = new LoginPage(driver);
-
-      loginPage.clickLoginWithProvider(provider);
-
-      assertTrue(driver.getCurrentUrl().startsWith(url));
     });
   }
 

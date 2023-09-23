@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Objects;
 
-public class LoginPage extends BasePage {
+public class LoginPage extends OAuthPage {
   @Override
   protected String getPath() {
     return "/users/login";
@@ -56,12 +56,5 @@ public class LoginPage extends BasePage {
 
   public void submitLogin() {
     submitLogin(false);
-  }
-
-  private static final String loginWithProviderButtonXPath = "//button[@data-provider='%s']";
-
-  public void clickLoginWithProvider(String provider) {
-    driver.findElement(By.xpath(String.format(loginWithProviderButtonXPath, provider))).click();
-    Utils.checkCaptcha(driver);
   }
 }
