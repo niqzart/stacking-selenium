@@ -18,6 +18,7 @@ public abstract class BasePage {
     this.driver = driver;
     String path = getPath();
     if (path != null) this.driver.get(Utils.formatUrl(getPath()));
+    waitAndAcceptCookies();
   }
 
   protected static String cookiesPopupXPath = "//div[contains(@class, 'js-consent-banner') and not(contains(@class, 'd-none'))]";

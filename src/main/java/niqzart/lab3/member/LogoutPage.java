@@ -12,7 +12,6 @@ public class LogoutPage extends BasePage {
 
   public LogoutPage(WebDriver driver) {
     super(driver);
-    waitAndAcceptCookies();
   }
 
   private static final String logoutButtonXPath = "//form[@action='/users/logout']//button[contains(text(), 'Log out')]";
