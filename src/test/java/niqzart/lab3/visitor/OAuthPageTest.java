@@ -1,5 +1,6 @@
-package niqzart.lab3;
+package niqzart.lab3.visitor;
 
+import niqzart.lab3.BaseTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

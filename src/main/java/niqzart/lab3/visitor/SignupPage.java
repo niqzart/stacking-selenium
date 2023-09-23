@@ -1,4 +1,4 @@
-package niqzart.lab3;
+package niqzart.lab3.visitor;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

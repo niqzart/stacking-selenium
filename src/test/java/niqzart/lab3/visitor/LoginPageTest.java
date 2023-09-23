@@ -1,5 +1,7 @@
-package niqzart.lab3;
+package niqzart.lab3.visitor;
 
+import niqzart.lab3.Utils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
@@ -86,7 +88,7 @@ public class LoginPageTest extends OAuthPageTest {
       loginPage.enterPassword(System.getenv().get("SO-PASSWORD"));
       loginPage.submitLogin(true);
 
-      assertEquals(driver.getCurrentUrl(), Utils.formatUrl("/"));
+      Assertions.assertEquals(driver.getCurrentUrl(), Utils.formatUrl("/"));
     });
   }
 }
