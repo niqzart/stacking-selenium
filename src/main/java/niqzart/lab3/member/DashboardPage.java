@@ -1,18 +1,13 @@
 package niqzart.lab3.member;
 
-import niqzart.lab3.BasePage;
+import niqzart.lab3.LandingPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class DashboardPage extends BasePage {
-  @Override
-  protected String getPath() {
-    return "/";
-  }
-
+public class DashboardPage extends LandingPage {
   public DashboardPage(WebDriver driver) {
     super(driver);
   }
@@ -28,8 +23,6 @@ public class DashboardPage extends BasePage {
   public void clickNavLink(String ref) {
     driver.findElement(By.xpath(String.format(navLinksXPath, ref))).click();
   }
-
-  private static final String userButtonXPath = "//li/a[contains(@class, 's-user-card')]";
 
   public void clickUserButton() {
     driver.findElement(By.xpath(userButtonXPath)).click();

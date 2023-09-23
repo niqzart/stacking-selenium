@@ -1,7 +1,7 @@
 package niqzart.lab3.member;
 
 import niqzart.lab3.BaseTest;
-import niqzart.lab3.LoginPage;
+import niqzart.lab3.visitor.LoginPage;
 import niqzart.lab3.Utils;
 import org.junit.jupiter.api.Test;
 

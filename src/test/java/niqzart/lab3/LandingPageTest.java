@@ -1,53 +1,54 @@
 package niqzart.lab3;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LandingPageTest extends BaseTest {
-  @Test
-  public void testNavigateToLoginPage() {
-    drivers.forEach(driver -> {
-      LandingPage page = new LandingPage(driver);
-      page.clickLogin();
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/login")));
-    });
+  private static Stream<Arguments> searchWordsParams() {
+    return Stream.of(
+      Arguments.of("python performance", "python+performance"),
+      Arguments.of("\"python is bad\"", "%22python+is+bad%22"),
+      Arguments.of("// in xpath", "%2F%2F+in+xpath"),
+      Arguments.of("hello score:4", "hello+score%3A4"),
+      Arguments.of("is:question", "is%3Aquestion"),
+      Arguments.of("[]", "=%5B%5D")  // checking if [] is not recognized as a tag
+    );
   }
 
-  @Test
-  public void testNavigateToSignupPage() {
+  @ParameterizedTest
+  @MethodSource("searchWordsParams")
+  void testSearchByWords(String query, String encoded) {
     drivers.forEach(driver -> {
       LandingPage page = new LandingPage(driver);
-      page.clickSignup();
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/signup")));
+
+      page.enterSearchQuery(query);
+      page.runSearch();
+
+      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl(String.format("/search?q=%s", encoded))));
     });
   }
-
-  @Test
-  public void testNavigateToSignupPageFromCommunity() {
-    drivers.forEach(driver -> {
-      LandingPage page = new LandingPage(driver);
-      page.clickJoinCommunity();
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/signup?ssrc=product_home")));
-    });
+  private static Stream<Arguments> searchTagsParams() {
+    return Stream.of(
+      Arguments.of("[kotlin]", "kotilin"),
+      Arguments.of("[kotlin] [java]", "kotlin+java")
+    );
   }
 
-  @Test
-  public void testNavigateToContentSearch() {
+  @ParameterizedTest
+  @MethodSource("searchTagsParams")
+  void testSearchByTag(String tags, String tagged) {
     drivers.forEach(driver -> {
       LandingPage page = new LandingPage(driver);
-      page.clickSearchContent();
-      assertEquals(driver.getCurrentUrl(), Utils.formatUrl("/questions"));
-    });
-  }
 
-  @Test
-  public void testNavigateToTeamsDiscovery() {
-    drivers.forEach(driver -> {
-      LandingPage page = new LandingPage(driver);
-      page.clickDiscoverTeams();
-      assertEquals(driver.getCurrentUrl(), "https://stackoverflow.co/teams/");
+      page.enterSearchQuery(tags);
+      page.runSearch();
+
+      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl(String.format("/questions/tagged/%s", tagged))));
     });
   }
 }

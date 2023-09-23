@@ -1,7 +1,9 @@
 package niqzart.lab3;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LandingPage extends BasePage {
   @Override
@@ -9,37 +11,28 @@ public class LandingPage extends BasePage {
     return "/";
   }
 
+  protected static final String userButtonXPath = "//li/a[contains(@class, 's-user-card')]";
+
+  public boolean isAuthorized() {
+    return driver.findElements(By.xpath(userButtonXPath)).size() > 0;
+  }
+
   public LandingPage(WebDriver driver) {
     super(driver);
   }
 
-  private static final String loginButtonXPath = "//header//li/a[@href='https://stackoverflow.com/users/login?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f']";
+  protected static final String searchInputXPath = "//input[@type='text' and @aria-label='Search']";
 
-  public void clickLogin() {
-    driver.findElement(By.xpath(loginButtonXPath)).click();
+  protected WebElement getSearchInput() {
+    return driver.findElement(By.xpath(searchInputXPath));
   }
 
-  private static final String signupButtonXPath = "//header//li/a[@href='https://stackoverflow.com/users/signup?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f']";
-
-  public void clickSignup() {
-    driver.findElement(By.xpath(signupButtonXPath)).click();
+  public void enterSearchQuery(String query) {
+    getSearchInput().sendKeys(query);
   }
 
-  private static final String communityJoinButtonXPath = "//div/a[@href='/users/signup?ssrc=product_home']";
-
-  public void clickJoinCommunity() {
-    driver.findElement(By.xpath(communityJoinButtonXPath)).click();
-  }
-
-  private static final String searchContentLinkXPath = "//p/a[@href='/questions']";
-
-  public void clickSearchContent() {
-    driver.findElement(By.xpath(searchContentLinkXPath)).click();
-  }
-
-  private static final String discoverTeamsButtonXPath = "//li/a[@href='https://stackoverflow.co/teams/']";
-
-  public void clickDiscoverTeams() {
-    driver.findElement(By.xpath(discoverTeamsButtonXPath)).click();
+  public void runSearch() {
+    getSearchInput().sendKeys(Keys.ENTER);
+    Utils.checkCaptcha(driver);
   }
 }

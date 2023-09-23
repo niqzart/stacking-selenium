@@ -1,13 +1,24 @@
 package niqzart.lab3.member;
 
+import niqzart.lab3.LandingPageTest;
 import niqzart.lab3.Utils;
+import niqzart.lab3.visitor.LoginPage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DashboardPageTest extends AuthorizedBaseTest {
+public class DashboardPageTest extends LandingPageTest {
+  @BeforeEach
+  void setupAuth() {
+    drivers.forEach(driver -> {
+      new LoginPage(driver).login();
+      assertTrue(new DashboardPage(driver).isAuthorized());
+    });
+  }
+
   @ParameterizedTest
   @ValueSource(strings = {"interesting", "bounties", "hot", "week", "month"})
   void testQuestionTabNavigation(String tabName) {
