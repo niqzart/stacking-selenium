@@ -4,9 +4,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v114.network.Network;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public abstract class BaseTest {
   public ArrayList<WebDriver> drivers;
@@ -14,8 +17,20 @@ public abstract class BaseTest {
   @BeforeEach
   public void setUp() {
     drivers = new ArrayList<>();
+
     drivers.add(new FirefoxDriver());
-    drivers.add(new ChromeDriver());
+
+    ChromeDriver chromeDriver = new ChromeDriver();
+    chromeDriver.getDevTools().createSession();
+    chromeDriver.getDevTools().send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+    chromeDriver.getDevTools().send(Network.setBlockedURLs(List.of(
+      "https://px.ads.linkedin.com/*",
+      "https://b.6sc.co/*",
+      "https://graph.facebook.com/*",
+      "https://www.google-analytics.com/*",
+      "https://pagead2.googlesyndication.com/*"
+    )));
+    drivers.add(chromeDriver);
   }
 
   @AfterEach
