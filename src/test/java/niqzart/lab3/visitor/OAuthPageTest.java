@@ -31,12 +31,12 @@ public abstract class OAuthPageTest extends BaseTest {
       try {
         oAuthPage.clickLoginWithProvider(provider);
       } catch (WebDriverException e) {
-        assertTrue(e.getMessage().contains("stackauth.com"));
+        assertTrue(e.getMessage().contains("stackauth.com"), e.getMessage());
         return;
       }
 
-      assertTrue(driver.getCurrentUrl().startsWith(url));
-      assertTrue(driver.getCurrentUrl().contains("stackauth.com"));
+      assertTrue(driver.getCurrentUrl().startsWith(url), driver.getCurrentUrl());
+      assertTrue(driver.getCurrentUrl().contains("stackauth.com"), driver.getCurrentUrl());
     });
   }
 }

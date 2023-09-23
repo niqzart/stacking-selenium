@@ -74,7 +74,7 @@ public class DashboardPageTest extends LandingPageTest {
 
       dashboardPage.clickUserButton();
 
-      assertTrue(driver.getCurrentUrl().matches(Utils.formatUrl("/users/\\d+/[^/]+")));
+      assertTrue(driver.getCurrentUrl().matches(Utils.formatUrl("/users/\\d+/[^/]+")), driver.getCurrentUrl());
     });
   }
 }

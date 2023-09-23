@@ -31,7 +31,7 @@ public class LoginPageTest extends OAuthPageTest {
 
       String errorMessage = loginPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("Email cannot be empty"));
+      assertTrue(errorMessage.contains("Email cannot be empty"), errorMessage);
     });
   }
 
@@ -45,7 +45,7 @@ public class LoginPageTest extends OAuthPageTest {
 
       String errorMessage = loginPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("Password cannot be empty"));
+      assertTrue(errorMessage.contains("Password cannot be empty"), errorMessage);
     });
   }
 
@@ -60,7 +60,7 @@ public class LoginPageTest extends OAuthPageTest {
 
       String errorMessage = loginPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("The email is not a valid email address"));
+      assertTrue(errorMessage.contains("The email is not a valid email address"), errorMessage);
     });
   }
 
@@ -75,7 +75,7 @@ public class LoginPageTest extends OAuthPageTest {
 
       String errorMessage = loginPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("The email or password is incorrect"));
+      assertTrue(errorMessage.contains("The email or password is incorrect"), errorMessage);
     });
   }
 

@@ -17,7 +17,7 @@ public class SignupPageTest extends OAuthPageTest {
   void testNoErrorsBeforeInput() {
     drivers.forEach(driver -> {
       SignupPage signupPage = new SignupPage(driver);
-      assertTrue(signupPage.getErrorMessage() == null || Objects.equals(signupPage.getErrorMessage(), ""));
+      assertTrue(signupPage.getErrorMessage() == null || Objects.equals(signupPage.getErrorMessage(), ""), signupPage.getErrorMessage());
     });
   }
 
@@ -31,7 +31,7 @@ public class SignupPageTest extends OAuthPageTest {
 
       String errorMessage = signupPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("Email cannot be empty"));
+      assertTrue(errorMessage.contains("Email cannot be empty"), errorMessage);
     });
   }
 
@@ -45,7 +45,7 @@ public class SignupPageTest extends OAuthPageTest {
 
       String errorMessage = signupPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("Password cannot be empty"));
+      assertTrue(errorMessage.contains("Password cannot be empty"), errorMessage);
     });
   }
 
@@ -60,7 +60,7 @@ public class SignupPageTest extends OAuthPageTest {
 
       String errorMessage = signupPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("make your password stronger"));
+      assertTrue(errorMessage.contains("make your password stronger"), errorMessage);
     });
   }
 
@@ -76,7 +76,7 @@ public class SignupPageTest extends OAuthPageTest {
 
       String errorMessage = signupPage.getErrorMessage();
       assertNotNull(errorMessage);
-      assertTrue(errorMessage.contains("CAPTCHA response required"));
+      assertTrue(errorMessage.contains("CAPTCHA response required"), errorMessage);
     });
   }
 }

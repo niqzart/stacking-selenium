@@ -13,7 +13,7 @@ public class VisitorLandingPageTest extends LandingPageTest {
       VisitorLandingPage page = new VisitorLandingPage(driver);
       assertFalse(page.isAuthorized());
       page.clickLogin();
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/login")));
+      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/login")), driver.getCurrentUrl());
     });
   }
 
@@ -23,7 +23,7 @@ public class VisitorLandingPageTest extends LandingPageTest {
       VisitorLandingPage page = new VisitorLandingPage(driver);
       assertFalse(page.isAuthorized());
       page.clickSignup();
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/signup")));
+      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/signup")), driver.getCurrentUrl());
     });
   }
 
@@ -33,7 +33,7 @@ public class VisitorLandingPageTest extends LandingPageTest {
       VisitorLandingPage page = new VisitorLandingPage(driver);
       assertFalse(page.isAuthorized());
       page.clickJoinCommunity();
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/signup?ssrc=product_home")));
+      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl("/users/signup?ssrc=product_home")), driver.getCurrentUrl());
     });
   }
 

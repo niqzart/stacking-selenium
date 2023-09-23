@@ -29,7 +29,11 @@ public class LandingPageTest extends BaseTest {
       page.enterSearchQuery(query);
       page.runSearch();
 
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl(String.format("/search?q=%s", encoded))));
+      String expected = Utils.formatUrl(String.format("/search?q=%s", encoded));
+      assertTrue(
+        driver.getCurrentUrl().startsWith(expected),
+        String.format("Real: %s, Expected (starts with): %s", driver.getCurrentUrl(), expected)
+      );
     });
   }
   private static Stream<Arguments> searchTagsParams() {
@@ -48,7 +52,11 @@ public class LandingPageTest extends BaseTest {
       page.enterSearchQuery(tags);
       page.runSearch();
 
-      assertTrue(driver.getCurrentUrl().startsWith(Utils.formatUrl(String.format("/questions/tagged/%s", tagged))));
+      String expected = Utils.formatUrl(String.format("/questions/tagged/%s", tagged));
+      assertTrue(
+        driver.getCurrentUrl().startsWith(expected),
+        String.format("Real: %s, Expected (starts with): %s", driver.getCurrentUrl(), expected)
+      );
     });
   }
 }
