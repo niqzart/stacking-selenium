@@ -57,4 +57,14 @@ public class LoginPage extends OAuthPage {
   public void submitLogin() {
     submitLogin(false);
   }
+
+  public void login() {
+    enterEmail(System.getenv().get("SO-EMAIL"));
+    enterPassword(System.getenv().get("SO-PASSWORD"));
+    try {
+      submitLogin(true);
+    } catch (TimeoutException ignore) {
+      login();
+    }
+  }
 }
